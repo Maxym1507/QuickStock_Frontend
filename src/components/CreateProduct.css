@@ -1,0 +1,29 @@
+/* CreateProduct.css */
+.create-product {
+    padding: 1rem;
+}
+
+.create-product form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create-product label {
+    margin: 0.5rem 0;
+    width: 100%;
+    max-width: 400px;
+}
+
+.create-product input,
+.create-product select,
+.create-product textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.create-product button {
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+}

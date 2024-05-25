@@ -1,0 +1,28 @@
+/* CreateCategory.css */
+.create-category {
+    padding: 1rem;
+}
+
+.create-category form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create-category label {
+    margin: 0.5rem 0;
+    width: 100%;
+    max-width: 400px;
+}
+
+.create-category input,
+.create-category textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.create-category button {
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+}

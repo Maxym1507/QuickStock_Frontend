@@ -1,0 +1,28 @@
+/* CreateOrder.css */
+.create-order {
+    padding: 1rem;
+}
+
+.create-order form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create-order label {
+    margin: 0.5rem 0;
+    width: 100%;
+    max-width: 400px;
+}
+
+.create-order input,
+.create-order select {
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.create-order button {
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+}

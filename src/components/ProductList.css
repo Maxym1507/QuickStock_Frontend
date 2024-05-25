@@ -1,0 +1,16 @@
+/* ProductList.css */
+.product-list {
+    padding: 1rem;
+}
+
+.product-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.product-list li {
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
