@@ -24,12 +24,32 @@
     margin-top: 10px;
 }
 
-.view-button {
+.voice-command-button {
+    margin-bottom: 20px;
+    background-color: #f0ad4e;
     padding: 5px 10px;
-    background-color: #007bff;
     color: white;
     border: none;
     cursor: pointer;
+}
+
+.voice-command-button:hover {
+    background-color: #ec971f;
+}
+
+.view-button, .delete-button, .cancel-button, .complete-button {
+    padding: 5px 10px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: none; /* Відсутність рамок */
+    outline: none; /* Відсутність обвідки */
+}
+
+.view-button {
+    background-color: #007bff;
 }
 
 .view-button:hover {
@@ -37,11 +57,7 @@
 }
 
 .delete-button {
-    padding: 5px 10px;
     background-color: #f44336;
-    color: white;
-    border: none;
-    cursor: pointer;
 }
 
 .delete-button:hover {
@@ -49,11 +65,7 @@
 }
 
 .cancel-button {
-    padding: 5px 10px;
     background-color: #f0ad4e;
-    color: white;
-    border: none;
-    cursor: pointer;
 }
 
 .cancel-button:hover {
@@ -61,11 +73,7 @@
 }
 
 .complete-button {
-    padding: 5px 10px;
     background-color: #5cb85c;
-    color: white;
-    border: none;
-    cursor: pointer;
 }
 
 .complete-button:hover {
@@ -99,11 +107,13 @@
 
 .close-button {
     margin-top: 20px;
-    padding: 5px 10px;
+    padding: 10px 0;
+    width: 100%;
     background-color: #f44336;
     color: white;
     border: none;
     cursor: pointer;
+    text-align: center;
 }
 
 .close-button:hover {

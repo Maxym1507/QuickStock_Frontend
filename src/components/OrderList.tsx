@@ -27,6 +27,7 @@ const OrderList: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
     const [modalOpen, setModalOpen] = useState(false);
+    const [listening, setListening] = useState(false);
 
     useEffect(() => {
         fetchOrders();
@@ -96,7 +97,7 @@ const OrderList: React.FC = () => {
                     return;
                 }
             }
-            order.status = "Completed"
+            order.status = "Completed";
             await axios.put(`${config.API_BASE_URL}/api/orders/${order.orderId}`, order);
             fetchOrders();
             alert('Order completed successfully!');
@@ -124,9 +125,57 @@ const OrderList: React.FC = () => {
         return product ? product.code : 'Unknown Code';
     };
 
+    const startListening = () => {
+        const recognition = new (window as any).webkitSpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = 'en-US';
+        recognition.start();
+
+        recognition.onstart = () => {
+            setListening(true);
+        };
+
+        recognition.onresult = (event: any) => {
+            const transcript = event.results[0][0].transcript.trim();
+            handleVoiceCommand(transcript);
+            setListening(false);
+        };
+
+        recognition.onerror = (event: any) => {
+            console.error('Speech recognition error', event);
+            setListening(false);
+        };
+
+        recognition.onend = () => {
+            setListening(false);
+        };
+    };
+
+    const handleVoiceCommand = (command: string) => {
+        const lowerCaseCommand = command.toLowerCase();
+        console.error('INFO: ', lowerCaseCommand);
+        if (lowerCaseCommand.includes('cancel order')) {
+            const orderId = parseInt(lowerCaseCommand.split('cancel order ')[1]);
+            const order = orders.find(o => o.orderId === orderId);
+            if (order) handleCancelOrder(order);
+        } else if (lowerCaseCommand.includes('complete order')) {
+            const orderId = parseInt(lowerCaseCommand.split('complete order ')[1]);
+            const order = orders.find(o => o.orderId === orderId);
+            if (order && canCompleteOrder(order)) handleCompleteOrder(order);
+        } else if (lowerCaseCommand.includes('delete order')) {
+            const orderId = parseInt(lowerCaseCommand.split('delete order ')[1]);
+            const order = orders.find(o => o.orderId === orderId);
+            if (order) handleDeleteOrder(orderId);
+        }
+    };
+
     return (
         <div className="order-list">
             <h1>Orders</h1>
+            <button onClick={startListening} disabled={listening} className="voice-command-button">
+                {listening ? 'Listening...' : 'Voice Command'}
+            </button>
             <ul>
                 {orders.map(order => (
                     <li key={order.orderId}>
@@ -138,9 +187,10 @@ const OrderList: React.FC = () => {
                                 {order.status === 'Pending' && (
                                     <>
                                         <button className="cancel-button" onClick={() => handleCancelOrder(order)}>Cancel</button>
-                                        {canCompleteOrder(order) && (
-                                            <button className="complete-button" onClick={() => handleCompleteOrder(order)}>Complete</button>
-                                        )}
+                                        {canCompleteOrder(order)
+                                            && (
+                                                <button className="complete-button" onClick={() => handleCompleteOrder(order)}>Complete</button>
+                                            )}
                                     </>
                                 )}
                             </div>
