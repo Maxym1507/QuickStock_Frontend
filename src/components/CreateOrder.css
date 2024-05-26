@@ -1,28 +1,44 @@
-/* CreateOrder.css */
 .create-order {
-    padding: 1rem;
+    margin: 20px;
 }
 
 .create-order form {
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .create-order label {
-    margin: 0.5rem 0;
-    width: 100%;
-    max-width: 400px;
-}
-
-.create-order input,
-.create-order select {
-    width: 100%;
-    padding: 0.5rem;
-    margin: 0.5rem 0;
+    margin-bottom: 10px;
 }
 
 .create-order button {
-    padding: 0.5rem 1rem;
-    margin-top: 1rem;
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.create-order button:hover {
+    background-color: #0056b3;
+}
+
+.create-order .remove-product-button {
+    background-color: #f44336;
+    margin-left: 10px;
+}
+
+.create-order .remove-product-button:hover {
+    background-color: #d32f2f;
+}
+
+.create-order .add-product-button {
+    background-color: #4CAF50;
+    color: white;
+    margin-top: 10px;
+}
+
+.create-order .add-product-button:hover {
+    background-color: #45a049;
 }

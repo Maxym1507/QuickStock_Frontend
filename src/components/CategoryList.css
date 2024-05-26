@@ -1,6 +1,5 @@
-/* CategoryList.css */
 .category-list {
-    padding: 1rem;
+    margin: 20px;
 }
 
 .category-list ul {
@@ -8,9 +7,38 @@
     padding: 0;
 }
 
-.category-list li {
-    padding: 0.5rem;
-    margin: 0.5rem 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+.category-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.category-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-button {
+    padding: 5px 10px;
+    background-color: #ffc107;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-button:hover {
+    background-color: #e0a800;
+}
+
+.delete-button {
+    padding: 5px 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #d32f2f;
 }

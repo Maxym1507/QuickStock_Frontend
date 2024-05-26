@@ -5,6 +5,7 @@ import './CreateProduct.css';
 
 const CreateProduct: React.FC = () => {
     const [categories, setCategories] = useState<any[]>([]);
+    const [categoryAttributes, setCategoryAttributes] = useState<any[]>([]);
     const [code, setCode] = useState('');
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -12,7 +13,7 @@ const CreateProduct: React.FC = () => {
     const [categoryId, setCategoryId] = useState('');
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
-    const [attributes, setAttributes] = useState('');
+    const [attributes, setAttributes] = useState<any>({});
 
     useEffect(() => {
         axios.get(`${config.API_BASE_URL}/api/categories`)
@@ -20,9 +21,33 @@ const CreateProduct: React.FC = () => {
             .catch(error => console.error(error));
     }, []);
 
+    useEffect(() => {
+        if (categoryId) {
+            const selectedCategory = categories.find(category => category.categoryId == categoryId);
+            if (selectedCategory) {
+                setCategoryAttributes(JSON.parse(selectedCategory.attributes));
+            } else {
+                setCategoryAttributes([]);
+            }
+        }
+    }, [categoryId, categories]);
+
+    const handleAttributeChange = (name: string, value: any) => {
+        setAttributes({ ...attributes, [name]: value });
+    };
+
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        const newProduct = { code, name, description, photoUrl, categoryId, price, quantity, attributes };
+        const newProduct = {
+            code,
+            name,
+            description,
+            photoUrl,
+            categoryId: parseInt(categoryId),
+            price: parseFloat(price),
+            quantity: parseInt(quantity),
+            attributes: JSON.stringify(attributes)
+        };
         try {
             await axios.post(`${config.API_BASE_URL}/api/products`, newProduct);
             alert('Product created successfully!');
@@ -33,7 +58,7 @@ const CreateProduct: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className="create-product">
             <h1>Create Product</h1>
             <form onSubmit={handleSubmit}>
                 <label>
@@ -66,19 +91,34 @@ const CreateProduct: React.FC = () => {
                     </select>
                 </label>
                 <br />
+                {categoryAttributes.map((attribute, index) => (
+                    <div key={index}>
+                        <label>
+                            {attribute.name}:
+                            {attribute.type === 'string' && (
+                                <input type="text" onChange={(e) => handleAttributeChange(attribute.name, e.target.value)} required />
+                            )}
+                            {attribute.type === 'number' && (
+                                <input type="number" onChange={(e) => handleAttributeChange(attribute.name, e.target.value)} required />
+                            )}
+                            {attribute.type === 'boolean' && (
+                                <select onChange={(e) => handleAttributeChange(attribute.name, e.target.value === 'true')} required>
+                                    <option value="true">True</option>
+                                    <option value="false">False</option>
+                                </select>
+                            )}
+                        </label>
+                    </div>
+                ))}
+                <br />
                 <label>
                     Price:
-                    <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} required />
+                    <input type="number" step="0.01" value={price} onChange={(e) => setPrice(e.target.value)} required />
                 </label>
                 <br />
                 <label>
                     Quantity:
                     <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} required />
-                </label>
-                <br />
-                <label>
-                    Attributes (JSON format):
-                    <textarea value={attributes} onChange={(e) => setAttributes(e.target.value)} />
                 </label>
                 <br />
                 <button type="submit">Create</button>

@@ -1,4 +1,3 @@
-//import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import CategoryList from './components/CategoryList';
 import ProductList from './components/ProductList';
@@ -6,11 +5,15 @@ import OrderList from './components/OrderList';
 import CreateCategory from './components/CreateCategory';
 import CreateProduct from './components/CreateProduct';
 import CreateOrder from './components/CreateOrder';
+import './App.css'
 
 function App() {
     return (
         <Router>
-            <div>
+            <div className="container">
+                <header className="header">
+                    Warehouse Order Collection System
+                </header>
                 <nav>
                     <ul>
                         <li><a href="/categories">Categories</a></li>
