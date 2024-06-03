@@ -42,7 +42,7 @@ const CreateProduct: React.FC = () => {
             code,
             name,
             description,
-            photoUrl,
+            photoUrl: "",
             categoryId: parseInt(categoryId),
             price: parseFloat(price),
             quantity: parseInt(quantity),
@@ -51,6 +51,15 @@ const CreateProduct: React.FC = () => {
         try {
             await axios.post(`${config.API_BASE_URL}/api/products`, newProduct);
             alert('Product created successfully!');
+            // Reset the form fields
+            setCode('');
+            setName('');
+            setDescription('');
+            setPhotoUrl('');
+            setCategoryId('');
+            setPrice('');
+            setQuantity('');
+            setAttributes('');
         } catch (error) {
             console.error(error);
             alert('Failed to create product.');
@@ -76,11 +85,7 @@ const CreateProduct: React.FC = () => {
                     <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} required />
                 </label>
                 <br />
-                <label>
-                    Photo URL:
-                    <input type="text" value={photoUrl} onChange={(e) => setPhotoUrl(e.target.value)} />
-                </label>
-                <br />
+
                 <label>
                     Category:
                     <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)} required>

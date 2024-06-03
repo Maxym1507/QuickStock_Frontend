@@ -56,6 +56,9 @@ const CreateOrder: React.FC = () => {
         try {
             await axios.post(`${config.API_BASE_URL}/api/orders`, newOrder);
             alert('Order created successfully!');
+            // Reset the form fields
+            setOrderDate(orderDate);
+            setOrderDetails([]);
         } catch (error) {
             console.error(error);
             alert('Failed to create order.');

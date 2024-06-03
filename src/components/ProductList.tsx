@@ -115,11 +115,7 @@ const ProductList: React.FC = () => {
                             <input type="text" value={selectedProduct.description} onChange={(e) => handleInputChange('description', e.target.value)} />
                         </label>
                         <br />
-                        <label>
-                            Photo URL:
-                            <input type="text" value={selectedProduct.photoUrl} onChange={(e) => handleInputChange('photoUrl', e.target.value)} />
-                        </label>
-                        <br />
+
                         <label>
                             Price:
                             <input type="number" step="0.01" value={selectedProduct.price} onChange={(e) => handleInputChange('price', e.target.value)} required />
